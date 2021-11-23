@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.8d483b34.chunk.css",
-    "main.js": "/static/js/main.e0dd292b.chunk.js",
-    "main.js.map": "/static/js/main.e0dd292b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.e3f57e3d.js",
-    "runtime-main.js.map": "/static/js/runtime-main.e3f57e3d.js.map",
-    "static/js/2.776aa229.chunk.js": "/static/js/2.776aa229.chunk.js",
-    "static/js/2.776aa229.chunk.js.map": "/static/js/2.776aa229.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.8963fd941ad29e32d8e37ec9e26f2b66.js": "/precache-manifest.8963fd941ad29e32d8e37ec9e26f2b66.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.8d483b34.chunk.css.map": "/static/css/main.8d483b34.chunk.css.map",
-    "static/js/2.776aa229.chunk.js.LICENSE.txt": "/static/js/2.776aa229.chunk.js.LICENSE.txt"
+    "main.css": "https://vramdal.github.io/trykktap/static/css/main.8d483b34.chunk.css",
+    "main.js": "https://vramdal.github.io/trykktap/static/js/main.e0dd292b.chunk.js",
+    "main.js.map": "https://vramdal.github.io/trykktap/static/js/main.e0dd292b.chunk.js.map",
+    "runtime-main.js": "https://vramdal.github.io/trykktap/static/js/runtime-main.aa4256b2.js",
+    "runtime-main.js.map": "https://vramdal.github.io/trykktap/static/js/runtime-main.aa4256b2.js.map",
+    "static/js/2.776aa229.chunk.js": "https://vramdal.github.io/trykktap/static/js/2.776aa229.chunk.js",
+    "static/js/2.776aa229.chunk.js.map": "https://vramdal.github.io/trykktap/static/js/2.776aa229.chunk.js.map",
+    "index.html": "https://vramdal.github.io/trykktap/index.html",
+    "precache-manifest.24bc0f7bce26188390ecf01019de8777.js": "https://vramdal.github.io/trykktap/precache-manifest.24bc0f7bce26188390ecf01019de8777.js",
+    "service-worker.js": "https://vramdal.github.io/trykktap/service-worker.js",
+    "static/css/main.8d483b34.chunk.css.map": "https://vramdal.github.io/trykktap/static/css/main.8d483b34.chunk.css.map",
+    "static/js/2.776aa229.chunk.js.LICENSE.txt": "https://vramdal.github.io/trykktap/static/js/2.776aa229.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e3f57e3d.js",
+    "static/js/runtime-main.aa4256b2.js",
     "static/js/2.776aa229.chunk.js",
     "static/css/main.8d483b34.chunk.css",
     "static/js/main.e0dd292b.chunk.js"
