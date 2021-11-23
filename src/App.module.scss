@@ -2,15 +2,41 @@
 
 .app {
 
+  font-size: 18pt;
+
   @include flexed;
 
-  section, article {
+  main, section, article {
+    width: 100%;
     @include flexed;
   }
 
-  label {
+  input, select {
+    @include inputs;
+    padding: 5px;
     display: block;
-    margin: 20px;
+  }
+
+  input {
+    text-align: center;
+  }
+
+  h1 {
+    flex: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 48pt;
+  }
+  section {
+    display: flex;
+    //grid-template-columns: repeat(3, 1fr);
+    //gap: 10px;
+    //grid-auto-rows: minmax(100px, auto);
+
+
+  }
+
+  label {
+    @include flexed;
   }
 
   article {
@@ -22,5 +48,14 @@
 section.horizontal {
   flex-direction: row;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+.radiolabel {
+  @include inputs;
+}
+
+.radioGroup {
+  @include inputs;
+
+}

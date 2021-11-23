@@ -12,16 +12,17 @@ const strommingstapPr100mTabell = [
 ];
 
 const slangelengde = 25;
-const vannveggForbruk = 800;
+// const vannveggForbruk = 800;
 
-
+console.log('App.tsx', 'Global');
 
 const App = () => {
-  const [formState, { radio, number, select }] = useFormState({
+  console.log('App.tsx', 'App');
+  const [formState, { number, select }] = useFormState({
     destinasjonTrykk: 1,
     avstand: 1,
     hoydeforskjell: 0,
-    diameter: "2.5",
+    diameter: "4",
     vannmengde: "250",
     pumpetype: "10 bar"
 
@@ -51,23 +52,25 @@ const App = () => {
   return (
     <div className={styles.app}>
       <main>
-        <section className={styles.horizontal}>
-          <label>
-            Ønsket vannmengde<br/>
-            <select {...select('vannmengde')}>
-              <option value={250}>250 l/min</option>
-              <option value={500}>500 l/min</option>
-              <option value={1000}>1000 l/min</option>
-              <option value={1500}>1500 l/min</option>
-              <option value={2000}>2000 l/min</option>
-            </select>
-          </label>
-          <label>
-            Ønsket trykk ved destinasjon<br/>
-            <input {...number('destinasjonTrykk')}/>
-          </label>
-        </section>
         <article>
+          <h1>Destinasjon</h1>
+          <section className={styles.horizontal}>
+            <label>
+              Ønsket vannmengde<br/>
+              <select {...select('vannmengde')}>
+                <option value={250}>250 l/min</option>
+                <option value={500}>500 l/min</option>
+                <option value={1000}>1000 l/min</option>
+                <option value={1500}>1500 l/min</option>
+                <option value={2000}>2000 l/min</option>
+              </select>
+            </label>
+            <label>
+              Ønsket trykk<br/>
+              <input {...number('destinasjonTrykk')}/>
+            </label>
+          </section>
+          <h1>Utlegg</h1>
           <section className={styles.horizontal}>
             <label>
               Avstand i km<br/>
@@ -77,37 +80,40 @@ const App = () => {
               Høydeforskjell i meter<br/>
               <input {...number('hoydeforskjell')}/>
             </label>
-            <label>
-              Slangediameter<br/>
-              <input {...radio('diameter', "2.5")}/>2½"<br/>
-              <input {...radio('diameter', "4")}/>4"
-            </label>
+            <div className={"radioGroup"}>
+              Slange<br/>
+              <select {...select('diameter')}>
+                <option value={"2.5"}>2½"</option>
+                <option value={"4"}>4"</option>
+              </select>
+            </div>
           </section>
+          <h1>Resultat</h1>
           <section className={styles.horizontal}>
             <label>
               Strømmingstap:<br/>
-              {strommingstap} bar
+              <span className={styles.radiolabel}>{strommingstap} bar</span>
             </label>
             <label>
               Høydetap:<br/>
-              {hoydeTap} bar
+              <span className={styles.radiolabel}>{hoydeTap} bar</span>
             </label>
           </section>
           <section className={styles.horizontal}>
             <label>
-              Pumpetype<br/>
+              Pumpekapasitet<br/>
               <select {...select('pumpetype')}>
-                <option value={"10 bar"}>Maks 10 bar (Ziegler)</option>
-                <option value={"6 bar"}>Maks 6 bar (Otter)</option>
+                <option value={"10 bar"}>10 bar</option>
+                <option value={"6 bar"}>6 bar</option>
               </select>
             </label>
             <label>
               Nødvendig utgangstrykk<br/>
-              {utgangstrykk}
+              <span className={styles.radiolabel}>{utgangstrykk}</span>
             </label>
             <label>
               Antall slanger:<br/>
-              {antallSlanger}
+              <span className={styles.radiolabel}>{antallSlanger}</span>
             </label>
           </section>
         </article>

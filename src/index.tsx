@@ -8,6 +8,7 @@ import AppRouter from './AppRouter'
 // import 'bootstrap/dist/css/bootstrap.css';
 
 // Single-page application (SPA)
+console.log('index.tsx', 'Global');
 ReactDOM.render(<AppRouter />, document.getElementById('root'))
 
 // If you want to Pre-render with react-snap
