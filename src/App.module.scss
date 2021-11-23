@@ -1,0 +1,26 @@
+@import "mixins";
+
+.app {
+
+  @include flexed;
+
+  section, article {
+    @include flexed;
+  }
+
+  label {
+    display: block;
+    margin: 20px;
+  }
+
+  article {
+    border: 1px ridge;
+    border-radius: 10px;
+  }
+}
+
+section.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
