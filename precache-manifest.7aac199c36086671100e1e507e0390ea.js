@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7ec2e73faf0c03909b9631c2490fade1",
+    "revision": "b84cfbebc49f78a7a35ad45d30aebb99",
     "url": "/trykktap/index.html"
   },
   {
-    "revision": "d2141e1b9f61a1b5531e",
-    "url": "/trykktap/static/css/main.952a5452.chunk.css"
+    "revision": "0f783bd40bbe5713ac09",
+    "url": "/trykktap/static/css/main.272728ea.chunk.css"
   },
   {
     "revision": "4d3f04690af2df45187b",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/trykktap/static/js/2.458acf4f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d2141e1b9f61a1b5531e",
+    "revision": "0f783bd40bbe5713ac09",
     "url": "/trykktap/static/js/main.ea7cf4a3.chunk.js"
   },
   {
