@@ -18,7 +18,7 @@ console.log('App.tsx', 'Global');
 
 const App = () => {
   console.log('App.tsx', 'App');
-  const [formState, { number, select }] = useFormState({
+  const [formState, { select, range }] = useFormState({
     destinasjonTrykk: 1,
     avstand: 1,
     hoydeforskjell: 0,
@@ -40,10 +40,10 @@ const App = () => {
 
   let strommingstap;
   if (strommingstapPr100m) {
-    strommingstap = strommingstapPr100m * parseFloat(formState.values.avstand) * 10;
+    strommingstap = strommingstapPr100m * parseFloat(formState.values.avstand) / 100;
   }
 
-  const antallSlanger = Math.ceil(formState.values.avstand * 1000 / slangelengde);
+  const antallSlanger = Math.ceil(formState.values.avstand / slangelengde);
 
   const hoydeTap = formState.values.hoydeforskjell / 10;
 
@@ -57,6 +57,7 @@ const App = () => {
           <section className={styles.horizontal}>
             <label>
               Ønsket vannmengde<br/>
+              <span className={styles.smallText}>Vannvegg: 800 l/min, strålerør: 500 l/min</span>
               <select {...select('vannmengde')}>
                 <option value={250}>250 l/min</option>
                 <option value={500}>500 l/min</option>
@@ -67,18 +68,21 @@ const App = () => {
             </label>
             <label>
               Ønsket trykk<br/>
-              <input {...number('destinasjonTrykk')}/>
+              <input {...range('destinasjonTrykk')} max={10} min={1}/>
+              {formState.values.destinasjonTrykk} bar
             </label>
           </section>
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
             <label>
-              Avstand i km<br/>
-              <input {...number('avstand')}/>
+              Avstand i m<br/>
+              <input {...range('avstand')} min={0} max={1000} step={100}/>
+              {formState.values.avstand} m
             </label>
             <label>
               Høydeforskjell i meter<br/>
-              <input {...number('hoydeforskjell')}/>
+              <input {...range('hoydeforskjell')} min={-100} max={200} step={1}/>
+              {formState.values.hoydeforskjell} m
             </label>
             <div className={"radioGroup"}>
               Slange<br/>
@@ -109,7 +113,7 @@ const App = () => {
             </label>
             <label>
               Nødvendig utgangstrykk<br/>
-              <span className={styles.radiolabel}>{utgangstrykk}</span>
+              <span className={styles.radiolabel}>{utgangstrykk.toFixed(1)} bar</span>
             </label>
             <label>
               Antall slanger:<br/>
