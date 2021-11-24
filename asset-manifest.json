@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/trykktap/static/css/main.8d483b34.chunk.css",
-    "main.js": "/trykktap/static/js/main.e0dd292b.chunk.js",
-    "main.js.map": "/trykktap/static/js/main.e0dd292b.chunk.js.map",
+    "main.css": "/trykktap/static/css/main.7c21ce6f.chunk.css",
+    "main.js": "/trykktap/static/js/main.a57af2c4.chunk.js",
+    "main.js.map": "/trykktap/static/js/main.a57af2c4.chunk.js.map",
     "runtime-main.js": "/trykktap/static/js/runtime-main.93a1aa89.js",
     "runtime-main.js.map": "/trykktap/static/js/runtime-main.93a1aa89.js.map",
-    "static/js/2.776aa229.chunk.js": "/trykktap/static/js/2.776aa229.chunk.js",
-    "static/js/2.776aa229.chunk.js.map": "/trykktap/static/js/2.776aa229.chunk.js.map",
+    "static/js/2.317549e0.chunk.js": "/trykktap/static/js/2.317549e0.chunk.js",
+    "static/js/2.317549e0.chunk.js.map": "/trykktap/static/js/2.317549e0.chunk.js.map",
     "index.html": "/trykktap/index.html",
-    "precache-manifest.168630385b92ae72ba667ea2431dc436.js": "/trykktap/precache-manifest.168630385b92ae72ba667ea2431dc436.js",
+    "precache-manifest.58e6c5af47412385483ac79c2ca9b25a.js": "/trykktap/precache-manifest.58e6c5af47412385483ac79c2ca9b25a.js",
     "service-worker.js": "/trykktap/service-worker.js",
-    "static/css/main.8d483b34.chunk.css.map": "/trykktap/static/css/main.8d483b34.chunk.css.map",
-    "static/js/2.776aa229.chunk.js.LICENSE.txt": "/trykktap/static/js/2.776aa229.chunk.js.LICENSE.txt"
+    "static/css/main.7c21ce6f.chunk.css.map": "/trykktap/static/css/main.7c21ce6f.chunk.css.map",
+    "static/js/2.317549e0.chunk.js.LICENSE.txt": "/trykktap/static/js/2.317549e0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.93a1aa89.js",
-    "static/js/2.776aa229.chunk.js",
-    "static/css/main.8d483b34.chunk.css",
-    "static/js/main.e0dd292b.chunk.js"
+    "static/js/2.317549e0.chunk.js",
+    "static/css/main.7c21ce6f.chunk.css",
+    "static/js/main.a57af2c4.chunk.js"
   ]
 }
