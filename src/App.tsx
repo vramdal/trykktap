@@ -1,6 +1,8 @@
 import React from 'react'
 // import './App.scss'
 import styles from './App.module.scss'; // Import css modules stylesheet as styles
+import './range-input-style.css';
+import './select-style.css';
 import { useFormState } from 'react-use-form-state';
 
 const strommingstapPr100mTabell = [
@@ -107,8 +109,8 @@ const App = () => {
             {/*<label>
               Pumpekapasitet<br/>
               <select {...select('pumpetype')}>
-                <option value={"10 bar"}>10 bar</option>
-                <option value={"6 bar"}>6 bar</option>
+                <option value={"10 bar"}>10 bar (Ziegler)</option>
+                <option value={"6 bar"}>6 bar (Otter)</option>
               </select>
             </label>*/}
             <label>

@@ -1,6 +1,14 @@
 @import "mixins";
 
+* {
+  box-sizing: border-box;
+}
+
 .app {
+
+  --app-padding: 18pt;
+
+  padding: var(--app-padding);
 
   font-size: 18pt;
 
@@ -17,8 +25,22 @@
     display: block;
   }
 
+  select {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18pt;
+    text-align: center;
+    max-width: calc(90vw - var(--app-padding) - var(--app-padding));
+
+  }
+
   input {
     text-align: center;
+  }
+
+  input[type='range'] {
+    //padding-left: var(--app-padding);
+    //padding-right: var(--app-padding)
   }
 
   h1 {
