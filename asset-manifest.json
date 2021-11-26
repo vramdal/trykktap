@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/trykktap/static/css/main.0cb44bcc.chunk.css",
-    "main.js": "/trykktap/static/js/main.28649fa5.chunk.js",
-    "main.js.map": "/trykktap/static/js/main.28649fa5.chunk.js.map",
+    "main.js": "/trykktap/static/js/main.a79be1af.chunk.js",
+    "main.js.map": "/trykktap/static/js/main.a79be1af.chunk.js.map",
     "runtime-main.js": "/trykktap/static/js/runtime-main.93a1aa89.js",
     "runtime-main.js.map": "/trykktap/static/js/runtime-main.93a1aa89.js.map",
     "static/js/2.458acf4f.chunk.js": "/trykktap/static/js/2.458acf4f.chunk.js",
     "static/js/2.458acf4f.chunk.js.map": "/trykktap/static/js/2.458acf4f.chunk.js.map",
     "index.html": "/trykktap/index.html",
-    "precache-manifest.fdda9e2a366b322852c1b600cbf2c956.js": "/trykktap/precache-manifest.fdda9e2a366b322852c1b600cbf2c956.js",
+    "precache-manifest.38b0432a02a198eec2256739c3104644.js": "/trykktap/precache-manifest.38b0432a02a198eec2256739c3104644.js",
     "service-worker.js": "/trykktap/service-worker.js",
     "static/css/main.0cb44bcc.chunk.css.map": "/trykktap/static/css/main.0cb44bcc.chunk.css.map",
     "static/js/2.458acf4f.chunk.js.LICENSE.txt": "/trykktap/static/js/2.458acf4f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.93a1aa89.js",
     "static/js/2.458acf4f.chunk.js",
     "static/css/main.0cb44bcc.chunk.css",
-    "static/js/main.28649fa5.chunk.js"
+    "static/js/main.a79be1af.chunk.js"
   ]
 }
