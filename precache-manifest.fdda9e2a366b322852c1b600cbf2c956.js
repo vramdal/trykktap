@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c775cf0bf8a173d6ea94ad44efd04882",
+    "revision": "1474d04f0472484f511509a53482e4ac",
     "url": "/trykktap/index.html"
   },
   {
