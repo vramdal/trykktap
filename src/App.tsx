@@ -104,13 +104,13 @@ const App = () => {
             </label>
           </section>
           <section className={styles.horizontal}>
-            /*<label>
+            {/*<label>
               Pumpekapasitet<br/>
               <select {...select('pumpetype')}>
                 <option value={"10 bar"}>10 bar</option>
                 <option value={"6 bar"}>6 bar</option>
               </select>
-            </label>*/
+            </label>*/}
             <label>
               Nødvendig utgangstrykk<br/>
               <span className={styles.radiolabel}>{utgangstrykk.toFixed(1)} bar</span>
