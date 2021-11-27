@@ -18,6 +18,20 @@ const slangelengde = 25;
 
 console.log('App.tsx', 'Global');
 
+const LabelledField = (props: { label: string, children: React.ReactNode}) => <>
+  <label>
+    {props.label}<br/>
+    {props.children}
+  </label>
+</>;
+
+const LabelledDiv = (props: { label: string, children: React.ReactNode, className?: string}) => <>
+  <div className={props.className}>
+    {props.label}<br/>
+    {props.children}
+  </div>
+</>;
+
 const App = () => {
   console.log('App.tsx', 'App');
   const [formState, { select, range }] = useFormState({
@@ -50,60 +64,55 @@ const App = () => {
   const hoydeTap = formState.values.hoydeforskjell / 10;
 
   const utgangstrykk = parseFloat(formState.values.destinasjonTrykk) + strommingstap + hoydeTap;
-
   return (
     <div className={styles.app}>
       <main>
         <article>
-          <h1>Destinasjon</h1>
-          <section className={styles.horizontal}>
-            <label>
-              Ønsket vannmengde<br/>
-              <span className={styles.smallText}>Vannvegg: 800 l/min, strålerør: 500 l/min</span>
-              <select {...select('vannmengde')}>
-                <option value={250}>250 l/min</option>
-                <option value={500}>500 l/min</option>
-                <option value={1000}>1000 l/min</option>
-                <option value={1500}>1500 l/min</option>
-                <option value={2000}>2000 l/min</option>
-              </select>
-            </label>
-            <label>
-              Ønsket trykk<br/>
-              <input {...range('destinasjonTrykk')} max={10} min={1}/>
-              {formState.values.destinasjonTrykk} bar
-            </label>
-          </section>
+          <>
+            <h1>Destinasjon</h1>
+            <section className={styles.horizontal}>
+              <LabelledField label={"Ønsket vannmengde"}>
+                  <span
+                    className={styles.smallText}>Vannvegg: 800 l/min, strålerør: 500 l/min</span>
+                <select {...select('vannmengde')}>
+                  <option value={250}>250 l/min</option>
+                  <option value={500}>500 l/min</option>
+                  <option value={1000}>1000 l/min</option>
+                  <option value={1500}>1500 l/min</option>
+                  <option value={2000}>2000 l/min</option>
+                </select>
+              </LabelledField>
+              <LabelledField label={"Ønsket trykk"}>
+                <input {...range('destinasjonTrykk')} max={10} min={1}/>
+                {formState.values.destinasjonTrykk} bar
+              </LabelledField>
+            </section>
+          </>
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
-            <label>
-              Avstand i m<br/>
+            <LabelledField label={"Avstand i m"}>
               <input {...range('avstand')} min={0} max={1000} step={100}/>
               {formState.values.avstand} m
-            </label>
-            <label>
-              Høydeforskjell i meter<br/>
+            </LabelledField>
+            <LabelledField label={"Høydeforskjell i meter"}>
               <input {...range('hoydeforskjell')} min={-100} max={200} step={1}/>
               {formState.values.hoydeforskjell} m
-            </label>
-            <div className={"radioGroup"}>
-              Slange<br/>
+            </LabelledField>
+            <LabelledDiv className={"radioGroup"} label={"Slange"}>
               <select {...select('diameter')}>
                 <option value={"2.5"}>2½"</option>
                 <option value={"4"}>4"</option>
               </select>
-            </div>
+            </LabelledDiv>
           </section>
           <h1>Resultat</h1>
           <section className={styles.horizontal}>
-            <label>
-              Strømmingstap:<br/>
+            <LabelledField label={"Strømmingstap:"}>
               <span className={styles.radiolabel}>{strommingstap} bar</span>
-            </label>
-            <label>
-              Høydetap:<br/>
+            </LabelledField>
+            <LabelledField label={"Høydetap:"}>
               <span className={styles.radiolabel}>{hoydeTap} bar</span>
-            </label>
+            </LabelledField>
           </section>
           <section className={styles.horizontal}>
             {/*<label>
@@ -113,14 +122,12 @@ const App = () => {
                 <option value={"6 bar"}>6 bar (Otter)</option>
               </select>
             </label>*/}
-            <label>
-              Nødvendig utgangstrykk<br/>
+            <LabelledField label={"Nødvendig utgangstrykk"}>
               <span className={styles.radiolabel}>{utgangstrykk.toFixed(1)} bar</span>
-            </label>
-            <label>
-              Antall slanger:<br/>
+            </LabelledField>
+            <LabelledField label={"Antall slanger:"}>
               <span className={styles.radiolabel}>{antallSlanger}</span>
-            </label>
+            </LabelledField>
           </section>
         </article>
 
