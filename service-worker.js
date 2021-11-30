@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/trykktap/precache-manifest.bee393e48996c235567a4264b3d5b00e.js"
+  "/trykktap/precache-manifest.0beb743e884212233ef85b81d13a1d36.js"
 );
 
 self.addEventListener('message', (event) => {
