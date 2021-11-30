@@ -3,7 +3,8 @@ import React from 'react'
 import styles from './App.module.scss'; // Import css modules stylesheet as styles
 import './range-input-style.css';
 import './select-style.css';
-import { useFormState } from 'react-use-form-state';
+import omit from 'lodash/omit';
+import { BaseInputProps, useFormState } from 'react-use-form-state';
 
 const strommingstapPr100mTabell = [
   [250, 0.25, undefined],
@@ -18,24 +19,37 @@ const slangelengde = 25;
 
 console.log('App.tsx', 'Global');
 
-const LabelledField = (props: { label: string, children: React.ReactNode}) => <>
-  <label>
+const LabelledField = (props: { label: string, children: React.ReactNode }) => <>
+  <div className={styles.labelledField}>
     {props.label}<br/>
     {props.children}
-  </label>
+  </div>
 </>;
 
-const LabelledDiv = (props: { label: string, children: React.ReactNode, className?: string}) => <>
+const LabelledDiv = (props: { label: string, children: React.ReactNode, className?: string }) => <>
   <div className={props.className}>
     {props.label}<br/>
     {props.children}
   </div>
 </>;
 
+function RangeInput(props: BaseInputProps<any> & { displayValue: number, min: number, max: number, step: number, unit: string }) {
+  return <>
+    <input {...omit(props, 'displayValue', 'unit')}/>
+    <ValueWithUnit value={props.displayValue} unit={props.unit} stringifier={n => n}/>
+  </>;
+}
+
+const ValueWithUnit = ({unit, className = "", value, stringifier = (n) => n.toFixed(0)}: { value: number, unit: string, stringifier?: (n: any) => string, className?: string }) => {
+  return <div className={styles.valueWithUnit + " " + className}>{(isNaN(value) || value === undefined || value === null) && "Ikke" +
+  " definert" || (<><span className={styles.valueWithUnit + "__value"}>{stringifier(value)}</span> <span
+    className={styles.valueWithUnit + "__unit"}>{unit}</span></>)}</div>
+}
+
 const App = () => {
   console.log('App.tsx', 'App');
-  const [formState, { select, range }] = useFormState({
-    destinasjonTrykk: 1,
+  const [formState, {select, range}] = useFormState({
+    destinasjonTrykk: 5,
     avstand: 1,
     hoydeforskjell: 0,
     diameter: "4",
@@ -43,13 +57,13 @@ const App = () => {
     pumpetype: "10 bar"
 
   });
-  let strommingstapPr100m : number | undefined = undefined;
+  let strommingstapPr100m: number | undefined = undefined;
   const strommingstapRow = strommingstapPr100mTabell.find(row => (row[0] + "") === formState.values.vannmengde);
 
   if (strommingstapRow) {
     if (formState.values.diameter === "2.5") {
       strommingstapPr100m = strommingstapRow[1];
-    } else  {
+    } else {
       strommingstapPr100m = strommingstapRow[2];
     }
   }
@@ -57,6 +71,8 @@ const App = () => {
   let strommingstap;
   if (strommingstapPr100m) {
     strommingstap = strommingstapPr100m * parseFloat(formState.values.avstand) / 100;
+  } else {
+    strommingstap = undefined;
   }
 
   const antallSlanger = Math.ceil(formState.values.avstand / slangelengde);
@@ -83,20 +99,21 @@ const App = () => {
                 </select>
               </LabelledField>
               <LabelledField label={"Ønsket trykk"}>
-                <input {...range('destinasjonTrykk')} max={10} min={1}/>
-                {formState.values.destinasjonTrykk} bar
+                <RangeInput {...range('destinasjonTrykk')} max={10} min={1} step={1} unit={"bar"}
+                            displayValue={formState.values.destinasjonTrykk}/>
               </LabelledField>
             </section>
           </>
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
             <LabelledField label={"Avstand i m"}>
-              <input {...range('avstand')} min={0} max={1000} step={100}/>
-              {formState.values.avstand} m
+              <RangeInput {...range('avstand')} unit={"m"} displayValue={formState.values.avstand}
+                          min={0} max={1000} step={100}/>
             </LabelledField>
             <LabelledField label={"Høydeforskjell i meter"}>
-              <input {...range('hoydeforskjell')} min={-100} max={200} step={1}/>
-              {formState.values.hoydeforskjell} m
+              <RangeInput {...range('hoydeforskjell')} unit={"m"}
+                          displayValue={formState.values.hoydeforskjell} min={-100} max={200}
+                          step={1}/>
             </LabelledField>
             <LabelledDiv className={"radioGroup"} label={"Slange"}>
               <select {...select('diameter')}>
@@ -108,7 +125,7 @@ const App = () => {
           <h1>Resultat</h1>
           <section className={styles.horizontal}>
             <LabelledField label={"Strømmingstap:"}>
-              <span className={styles.radiolabel}>{strommingstap} bar</span>
+              <ValueWithUnit value={strommingstap} unit={"bar"} stringifier={n => n}/>
             </LabelledField>
             <LabelledField label={"Høydetap:"}>
               <span className={styles.radiolabel}>{hoydeTap} bar</span>
@@ -123,7 +140,7 @@ const App = () => {
               </select>
             </label>*/}
             <LabelledField label={"Nødvendig utgangstrykk"}>
-              <span className={styles.radiolabel}>{utgangstrykk.toFixed(1)} bar</span>
+              <ValueWithUnit value={utgangstrykk} unit={"bar"} stringifier={n => n.toFixed(2)}/>
             </LabelledField>
             <LabelledField label={"Antall slanger:"}>
               <span className={styles.radiolabel}>{antallSlanger}</span>
