@@ -17,22 +17,29 @@ const strommingstapPr100mTabell = [
 const slangelengde = 25
 // const vannveggForbruk = 800;
 
-console.log('App.tsx', 'Global')
-
-const LabelledField = (props: { label: string; children: React.ReactNode }) => (
+const LabelledField = (props: { label: string; children: React.ReactNode; id: string }) => (
   <>
     <div className={styles.labelledField}>
-      {props.label}
+      <label htmlFor={props.id}>{props.label}</label>
       <br />
       {props.children}
     </div>
   </>
 )
 
-const LabelledDiv = (props: { label: string; children: React.ReactNode; className?: string }) => (
+const LabelledOutput = (props: { label: string; children: React.ReactNode }) => (
+  <>
+    <div className={styles.labelledField}>
+      <dt>{props.label}</dt>
+      <dd>{props.children}</dd>
+    </div>
+  </>
+)
+
+const LabelledDiv = (props: { label: string; children: React.ReactNode; className?: string; id: string }) => (
   <>
     <div className={props.className}>
-      {props.label}
+      <label htmlFor={props.id}>{props.label}</label>
       <br />
       {props.children}
     </div>
@@ -62,7 +69,6 @@ const ValueWithUnit = ({ unit, className = '', value, stringifier = (n) => n.toF
 }
 
 const App = () => {
-  console.log('App.tsx', 'App')
   const [formState, { select, range }] = useFormState({
     destinasjonTrykk: 5,
     avstand: 1,
@@ -101,9 +107,9 @@ const App = () => {
           <>
             <h1>Destinasjon</h1>
             <section className={styles.horizontal}>
-              <LabelledField label={'Ønsket vannmengde'}>
+              <LabelledField label={'Ønsket vannmengde'} id={'vannmengde'}>
                 <span className={styles.smallText}>Vannvegg: 800 l/min, strålerør: 500 l/min</span>
-                <select {...select('vannmengde')}>
+                <select {...select('vannmengde')} id={'vannmengde'}>
                   <option value={250}>250 l/min</option>
                   <option value={500}>500 l/min</option>
                   <option value={1000}>1000 l/min</option>
@@ -111,21 +117,21 @@ const App = () => {
                   <option value={2000}>2000 l/min</option>
                 </select>
               </LabelledField>
-              <LabelledField label={'Ønsket trykk'}>
-                <RangeInput {...range('destinasjonTrykk')} max={10} min={1} step={1} unit={'bar'} displayValue={formState.values.destinasjonTrykk} />
+              <LabelledField label={'Ønsket trykk'} id={'destinasjonTrykk'}>
+                <RangeInput {...range('destinasjonTrykk')} max={10} min={1} step={1} unit={'bar'} displayValue={formState.values.destinasjonTrykk} id={'destinasjonTrykk'} />
               </LabelledField>
             </section>
           </>
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
-            <LabelledField label={'Avstand i m'}>
-              <RangeInput {...range('avstand')} unit={'m'} displayValue={formState.values.avstand} min={0} max={1000} step={100} />
+            <LabelledField label={'Avstand i m'} id={'avstand'}>
+              <RangeInput {...range('avstand')} unit={'m'} displayValue={formState.values.avstand} min={0} max={1000} step={100} id={'avstand'} />
             </LabelledField>
-            <LabelledField label={'Høydeforskjell i meter'}>
-              <RangeInput {...range('hoydeforskjell')} unit={'m'} displayValue={formState.values.hoydeforskjell} min={-100} max={200} step={1} />
+            <LabelledField label={'Høydeforskjell i meter'} id={'hoydeforskjell'}>
+              <RangeInput {...range('hoydeforskjell')} unit={'m'} displayValue={formState.values.hoydeforskjell} min={-100} max={200} step={1} id={'hoydeforskjell'} />
             </LabelledField>
-            <LabelledDiv className={'radioGroup'} label={'Slange'}>
-              <select {...select('diameter')}>
+            <LabelledDiv className={'radioGroup'} label={'Slange'} id={'diameter'}>
+              <select {...select('diameter')} id={'diameter'}>
                 <option value={'2.5'}>2½"</option>
                 <option value={'4'}>4"</option>
               </select>
@@ -133,12 +139,12 @@ const App = () => {
           </section>
           <h1>Resultat</h1>
           <section className={styles.horizontal}>
-            <LabelledField label={'Strømmingstap:'}>
+            <LabelledOutput label={'Strømmingstap'}>
               <ValueWithUnit value={strommingstap} unit={'bar'} stringifier={(n) => n} />
-            </LabelledField>
-            <LabelledField label={'Høydetap:'}>
+            </LabelledOutput>
+            <LabelledOutput label={'Høydetap'}>
               <span className={styles.radiolabel}>{hoydeTap} bar</span>
-            </LabelledField>
+            </LabelledOutput>
           </section>
           <section className={styles.horizontal}>
             {/*<label>
@@ -148,12 +154,12 @@ const App = () => {
                 <option value={"6 bar"}>6 bar (Otter)</option>
               </select>
             </label>*/}
-            <LabelledField label={'Nødvendig utgangstrykk'}>
+            <LabelledOutput label={'Nødvendig utgangstrykk'}>
               <ValueWithUnit value={utgangstrykk} unit={'bar'} stringifier={(n) => n.toFixed(2)} />
-            </LabelledField>
-            <LabelledField label={'Antall slanger:'}>
+            </LabelledOutput>
+            <LabelledOutput label={'Antall slanger'}>
               <span className={styles.radiolabel}>{antallSlanger}</span>
-            </LabelledField>
+            </LabelledOutput>
           </section>
         </article>
       </main>
