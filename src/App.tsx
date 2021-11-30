@@ -51,7 +51,7 @@ function RangeInput(props: BaseInputProps<any> & { displayValue: number; min: nu
 const ValueWithUnit = ({ unit, className = '', value, stringifier = (n) => n.toFixed(0) }: { value: number; unit: string; stringifier?: (n: any) => string; className?: string }) => {
   return (
     <div className={styles.valueWithUnit + ' ' + className}>
-      {((isNaN(value) || value === undefined || value === null) && 'Ikke' + ' definert') || (
+      {((isNaN(value) || value === undefined || value === null) && `Ikke definert`) || (
         <>
           <span className={styles.valueWithUnit + '__value'}>{stringifier(value)}</span>
           <span className={styles.valueWithUnit + '__unit'}>{unit}</span>
