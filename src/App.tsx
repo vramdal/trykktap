@@ -3,9 +3,8 @@ import React from 'react'
 import styles from './App.module.scss' // Import css modules stylesheet as styles
 import './range-input-style.css'
 import './select-style.css'
-import omit from 'lodash/omit'
-import { BaseInputProps, useFormState } from 'react-use-form-state'
-import { Input, Slider } from '@material-ui/core'
+import { FormState, useFormState } from 'react-use-form-state'
+import { Grid, Input, InputAdornment, Slider } from '@material-ui/core'
 
 const strommingstapPr100mTabell = [
   [250, 0.25, undefined],
@@ -19,13 +18,12 @@ const slangelengde = 25
 // const vannveggForbruk = 800;
 
 const LabelledField = (props: { label: string; children: React.ReactNode; id: string }) => (
-  <>
-    <div className={styles.labelledField}>
+  <Grid container>
+    <Grid item xs={12} md={12} className={styles.labelContainer}>
       <label htmlFor={props.id}>{props.label}</label>
-      <br />
-      {props.children}
-    </div>
-  </>
+    </Grid>
+    {props.children}
+  </Grid>
 )
 
 const LabelledOutput = (props: { label: string; children: React.ReactNode }) => (
@@ -47,15 +45,6 @@ const LabelledDiv = (props: { label: string; children: React.ReactNode; classNam
   </>
 )
 
-function RangeInput(props: BaseInputProps<any> & { displayValue: number; min: number; max: number; step: number; unit: string }) {
-  return (
-    <>
-      <input {...omit(props, 'displayValue', 'unit')} />
-      <ValueWithUnit value={props.displayValue} unit={props.unit} stringifier={(n) => n} />
-    </>
-  )
-}
-
 const ValueWithUnit = ({ unit, className = '', value, stringifier = (n) => n.toFixed(0) }: { value: number; unit: string; stringifier?: (n: any) => string; className?: string }) => {
   return (
     <div className={styles.valueWithUnit + ' ' + className}>
@@ -69,8 +58,92 @@ const ValueWithUnit = ({ unit, className = '', value, stringifier = (n) => n.toF
   )
 }
 
+type ReactNodeWrapper = (element: React.ReactNode) => React.ReactNode
+
+function SliderWithInput(props: {
+  formState: FormState<any>
+  valueName: string
+  unit?: string
+  sliderWrapper?: ReactNodeWrapper
+  inputWrapper?: ReactNodeWrapper
+  max: number
+  min: number
+  step?: number
+}) {
+  const sliderWrapper = props.sliderWrapper || ((el) => el)
+  const inputWrapper = props.inputWrapper || ((el) => el)
+  const value = props.formState.values[props.valueName]
+  const ariaValueText = (value) => `${value}${(props.unit && ' ' + props.unit) || ''}`
+
+  return (
+    <>
+      {sliderWrapper(
+        <Slider
+          value={value}
+          getAriaValueText={ariaValueText}
+          color="secondary"
+          min={props.min}
+          max={props.max}
+          step={props.step}
+          name={props.valueName}
+          onChange={(event, newValue) => {
+            props.formState.setField(props.valueName, newValue)
+          }}
+        />
+      )}
+      {inputWrapper(
+        <Input
+          id={props.valueName}
+          value={value}
+          onChange={(event) => {
+            props.formState.setField(props.valueName, event.target.value === '' ? '' : Number(event.target.value))
+          }}
+          endAdornment={props.unit && <InputAdornment position="end">{props.unit}</InputAdornment>}
+          // onBlur={handleBlur}
+          inputProps={{
+            // step: 10,
+            // min: 0,
+            // max: 100,
+            type: 'number',
+            // 'aria-labelledby': 'input-slider',
+          }}
+        />
+      )}
+    </>
+  )
+}
+
+function SliderWithInputGrid(props: { formState: FormState<any>; valueName: string; label: string; min: number; max: number; step: number; unit: string }) {
+  return (
+    <Grid container>
+      <Grid item xs={12} md={12} className={styles.labelContainer}>
+        <label htmlFor={props.valueName}>{props.label}</label>
+      </Grid>
+
+      <SliderWithInput
+        formState={props.formState}
+        unit={props.unit}
+        valueName={props.valueName}
+        min={props.min}
+        max={props.max}
+        step={props.step}
+        sliderWrapper={(slider) => (
+          <Grid container item xs={8} alignItems={'center'}>
+            {slider}
+          </Grid>
+        )}
+        inputWrapper={(input) => (
+          <Grid container item xs={4}>
+            {input}
+          </Grid>
+        )}
+      />
+    </Grid>
+  )
+}
+
 const App = () => {
-  const [formState, { select, range }] = useFormState({
+  const [formState, { select }] = useFormState({
     destinasjonTrykk: 5,
     avstand: 1,
     hoydeforskjell: 0,
@@ -104,7 +177,6 @@ const App = () => {
 
   // const avstandRangeProps = {...range('avstand')};
 
-
   return (
     <div className={styles.app}>
       <main>
@@ -122,46 +194,13 @@ const App = () => {
                   <option value={2000}>2000 l/min</option>
                 </select>
               </LabelledField>
-              <LabelledField label={'Ønsket trykk'} id={'destinasjonTrykk'}>
-                <RangeInput {...range('destinasjonTrykk')} max={10} min={1} step={1} unit={'bar'} displayValue={formState.values.destinasjonTrykk} id={'destinasjonTrykk'} />
-              </LabelledField>
+              <SliderWithInputGrid formState={formState} valueName={'destinasjonTrykk'} label={'Ønsket trykk'} min={1} max={10} step={1} unit={'bar'} />
             </section>
           </>
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
-            <LabelledField label={'Avstand i m'} id={'avstand'}>
-              <Slider
-                value={formState.values.avstand}
-                getAriaValueText={(value) => value + " m"}
-                color="secondary"
-                onChange={
-                  (event, newValue) => {
-                    formState.setField("avstand", newValue);
-                  }
-                }
-              />
-              <Input
-                id={"avstand"}
-                value={formState.values}
-                onChange={
-                  (event) => {
-                    formState.setField("avstand", event.target.value === '' ? '' : Number(event.target.value));
-                  }
-                }
-                // onBlur={handleBlur}
-                inputProps={{
-                  // step: 10,
-                  // min: 0,
-                  // max: 100,
-                  type: 'number',
-                  // 'aria-labelledby': 'input-slider',
-                }}
-              />
-              {/*<RangeInput {...range('avstand')} unit={'m'} displayValue={formState.values.avstand} min={0} max={1000} step={100} id={'avstand'} />*/}
-            </LabelledField>
-            <LabelledField label={'Høydeforskjell i meter'} id={'hoydeforskjell'}>
-              <RangeInput {...range('hoydeforskjell')} unit={'m'} displayValue={formState.values.hoydeforskjell} min={-100} max={200} step={1} id={'hoydeforskjell'} />
-            </LabelledField>
+            <SliderWithInputGrid label={'Avstand i m'} valueName={'avstand'} formState={formState} min={0} max={3000} step={100} unit={'m'} />
+            <SliderWithInputGrid formState={formState} valueName={'hoydeforskjell'} label={'Høydeforskjell i meter'} min={-100} max={200} step={1} unit={'m'} />
             <LabelledDiv className={'radioGroup'} label={'Slange'} id={'diameter'}>
               <select {...select('diameter')} id={'diameter'}>
                 <option value={'2.5'}>2½"</option>

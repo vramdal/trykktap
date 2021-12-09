@@ -92,7 +92,6 @@ section.horizontal {
   font-size: 11pt;
 }
 
-.labelledField {
-  @include flexed;
+.labelContainer {
+  background-color: lightgray;
 }
-
