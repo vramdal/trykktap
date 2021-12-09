@@ -5,6 +5,7 @@ import './range-input-style.css'
 import './select-style.css'
 import omit from 'lodash/omit'
 import { BaseInputProps, useFormState } from 'react-use-form-state'
+import { Input, Slider } from '@material-ui/core'
 
 const strommingstapPr100mTabell = [
   [250, 0.25, undefined],
@@ -100,6 +101,10 @@ const App = () => {
   const hoydeTap = formState.values.hoydeforskjell / 10
 
   const utgangstrykk = parseFloat(formState.values.destinasjonTrykk) + strommingstap + hoydeTap
+
+  // const avstandRangeProps = {...range('avstand')};
+
+
   return (
     <div className={styles.app}>
       <main>
@@ -125,7 +130,34 @@ const App = () => {
           <h1>Utlegg</h1>
           <section className={styles.horizontal}>
             <LabelledField label={'Avstand i m'} id={'avstand'}>
-              <RangeInput {...range('avstand')} unit={'m'} displayValue={formState.values.avstand} min={0} max={1000} step={100} id={'avstand'} />
+              <Slider
+                value={formState.values.avstand}
+                getAriaValueText={(value) => value + " m"}
+                color="secondary"
+                onChange={
+                  (event, newValue) => {
+                    formState.setField("avstand", newValue);
+                  }
+                }
+              />
+              <Input
+                id={"avstand"}
+                value={formState.values}
+                onChange={
+                  (event) => {
+                    formState.setField("avstand", event.target.value === '' ? '' : Number(event.target.value));
+                  }
+                }
+                // onBlur={handleBlur}
+                inputProps={{
+                  // step: 10,
+                  // min: 0,
+                  // max: 100,
+                  type: 'number',
+                  // 'aria-labelledby': 'input-slider',
+                }}
+              />
+              {/*<RangeInput {...range('avstand')} unit={'m'} displayValue={formState.values.avstand} min={0} max={1000} step={100} id={'avstand'} />*/}
             </LabelledField>
             <LabelledField label={'Høydeforskjell i meter'} id={'hoydeforskjell'}>
               <RangeInput {...range('hoydeforskjell')} unit={'m'} displayValue={formState.values.hoydeforskjell} min={-100} max={200} step={1} id={'hoydeforskjell'} />
