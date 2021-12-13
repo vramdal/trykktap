@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react'
 import App from './App'
 
 const AppRouter: FunctionComponent = () => {
-  return (<App/>);
+  return (<App />);
 }
 
 /*

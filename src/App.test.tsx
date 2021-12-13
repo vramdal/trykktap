@@ -1,7 +1,7 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import App from './App'
 import React from 'react'
+import App from './App'
 
 const getDefinitionValue = (rendered: RenderResult, term: string) => {
   const terms = rendered.getAllByRole('term')
@@ -9,13 +9,13 @@ const getDefinitionValue = (rendered: RenderResult, term: string) => {
   if (termComponent === undefined) throw Error(`term '${term}' not found`)
   const details = termComponent.nextElementSibling
   if (details?.tagName !== 'DD') {
-    throw new Error('No definition detail found for definition term ' + term)
+    throw new Error(`No definition detail found for definition term ${  term}`)
   }
   return details
 }
 
 const setRangeInput = (rangeInput: HTMLElement, value: number) => {
-  fireEvent.change(rangeInput, { target: { value: value, valueAsNumber: value } })
+  fireEvent.change(rangeInput, { target: { value, valueAsNumber: value } })
 }
 
 describe('App tests', () => {
